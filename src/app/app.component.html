@@ -1,0 +1,124 @@
+<main class="main">
+<app-loader *ngIf="loading"></app-loader>
+<div *ngIf="!loading">
+  <div class="currency" title="Change currency" id="change-currency" (click)="changeCurrency()">{{currency}}</div>
+  <header class="header">
+      <div class="container">
+          <div class="logo">
+              <img src="assets/images/logo.png" alt="logo" class="">
+          </div>
+          <nav class="menu">
+              <ul class="menu-list">
+                  <li class="menu-item">
+                      <a (click)="scrollTo(products)">Catalog</a>
+                  </li>
+                  <li class="menu-item">
+                      <a (click)="scrollTo(backery)">About</a>
+                  </li>
+                  <li class="menu-item">
+                      <a (click)="scrollTo(order)">Order</a>
+                  </li>
+              </ul>
+          </nav>
+      </div>
+  </header>
+  <section class="main-content">
+      <div class="container">
+          <img src="assets/images/line1.png" alt="Line" class="line1">
+          <div class="main-info">
+              <h1 class="main-title">Magic in every morsel</h1>
+              <p class="main-text">
+                  Our recipes breathe life into the elegance of ingredients: fragrant natural butter, fresh cream, pure honey, and select flour. We meticulously choose each component of our premium cookies, aiming to deliver a true culinary delight.
+              </p>
+              <div class="main-action">
+                  <button class="button" id="main-action-button" (click)="scrollTo(products)">Order</button>
+              </div>
+          </div>
+          <img src="assets/images/cookie.png" alt="cookie" class="main-img">
+      </div>
+  </section>
+  <section class="products" id="products" #products>
+      <div class="container">
+          <img src="assets/images/line2.png" alt="Line" class="line2">
+          <div class="common-title">
+              Choose your cookies
+          </div>
+          <div class="sugar-free">
+            <div>All</div>
+            <input type="checkbox" id="switch" (change)="onToggleSugarFree()" [checked]="showSugarFree"/>
+            <label for="switch"></label>
+            <div>Sugar Free</div>
+          </div>
+          <div class="products-items">
+              <div class="products-item" *ngFor="let product of filteredProducts">
+                  <div class="products-item-image">
+                    <img [src]="product.image" alt="Product">
+                  </div>
+                  <div class="products-item-details">
+                      <div class="products-item-title">{{product.title}}</div>
+                      <div class="products-item-text">{{product.text}}</div>
+                      <div class="products-item-extra">
+                          <div class="products-item-info">
+                              <div class="products-item-price">{{product.price}} {{currency}} </div>
+                              <div class="products-item-weight">{{product.weight}}</div>
+                          </div>
+                          <button class="button violet-button" (click)="scrollTo(order, product)">
+                              Order
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <section class="backery" id="backery" #backery>
+      <div class="container">
+          <div class="common-title">Bakery with love</div>
+          <div class="backery-items">
+              <div class="backery-item backery-item-white">
+                  <div class="backery-item-title">Prepared with care to delight you every day</div>
+                  <div class="backery-item-text">
+                      We proudly present our cookies, which we have been baking by hand every day since 1995, using only the finest ingredients. Immerse yourself in a world of exquisite treats prepared with cutting-edge technology, and enjoy their unique taste.
+                  </div>
+              </div>
+              <div class="backery-item backery-item-image">
+                  <img src="assets/images/love.png" alt="Cookies image">
+              </div>
+          </div>
+      </div>
+  </section>
+  <section class="order" id="order" #order>
+      <img src="assets/images/line3.png" alt="Line" class="line3">
+      <div class="container">
+          <div class="common-title">
+              Order cookies
+          </div>
+          <img src="assets/images/breadcrumbs.png" alt="Breadcrumbs" class="order-bg-image">
+          <div class="order-block">
+              <div class="order-form">
+                  <div class="order-form-text">
+                      Discover the magic of flavor with our premium cookies! Order now and dive into a world of sweet delights.
+                  </div>
+                  <div class="order-form-inputs" [formGroup]="form">
+                    <input type="text" placeholder="Choose your cookies" id="product" formControlName="product" [class]="{'error': form.get('product')?.invalid && (form.get('product')?.dirty || form.get('product')?.touched)}" readonly>
+                    <input type="text" placeholder="Your name" id="name" formControlName="name" [class]="{'error': form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)}">
+                    <input type="text" placeholder="Your phone number" id="phone" formControlName="phone" [class]="{'error': form.get('phone')?.invalid && (form.get('phone')?.dirty || form.get('phone')?.touched)}">
+                    <button class="button violet-button" (click)="onSubmit()" [disabled]="!form.valid">Order</button>
+                  </div>
+              </div>
+              <div class="order-block-image">
+                  <img src="assets/images/order.png" alt="Cookies" class="order-image">
+              </div>
+          </div>
+      </div>
+  </section>
+  <footer class="footer">
+      <div class="logo">
+          <img src="assets/images/logo.png" alt="Logo">
+      </div>
+      <div class="rights">
+          ©2024 All rights reserved.
+      </div>
+  </footer>
+</div>
+</main>
